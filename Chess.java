@@ -1,7 +1,5 @@
 public class Chess{
   static int[][] board;
-  public static boolean valid(int r, int c){
-    return board[r][c] == 0;}
   public static int count(int num){
     int counter = 0;
     for(int i  = 0; i < board.length; i++){
@@ -37,7 +35,6 @@ public class Chess{
 
   public static boolean nQueensH(int r, int c){
     int startOff = 0;
-    System.out.println(printArray());
     if(count(-1) == board.length){
       return true;}
     if(r >= board.length && c >= board.length){
@@ -47,13 +44,18 @@ public class Chess{
         startOff ++;}
       edit(startOff, c - 1, false);
       return nQueensH(startOff + 1, c - 1);}
-    if(valid(r, c)){
+    if(board[r][c] == 0){
       edit(r, c, true);
       return nQueensH(0, c  + 1);}
     return nQueensH(r + 1, c);}
+
   public static boolean nQueens(int n){
+    if(n == 2 || n == 3){
+      return false;
+    }
     board = new int[n][n];
     return nQueensH(0, 0);}
+
   public static String printArray(){
     String output = "";
     for(int i = 0; i < board.length; i++){
@@ -61,12 +63,9 @@ public class Chess{
         output += " " + board[i][j];}
       output += "\n";}
     return output;}
+
   public static void main(String[] args){
-    try{
-    System.out.println(nQueens(8));
+    System.out.println(nQueens(4));
     System.out.println(printArray());
-  }
-  catch(StackOverflowError e){
-    System.out.println("");}
   }
 }
